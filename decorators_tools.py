@@ -1,4 +1,5 @@
 import os
+from pyvirtualdisplay import Display
 
 
 def create_folder(_func=None, *, dir_name: str = None):
@@ -18,3 +19,11 @@ def create_folder(_func=None, *, dir_name: str = None):
     if _func is None:
         return _decorator
     return _decorator(_func)
+
+
+def hidden_chrome(func):
+    def wrapper(*args, **kwargs):
+        with Display() as disp:
+            response = func(*args, **kwargs)
+        return response
+    return wrapper
